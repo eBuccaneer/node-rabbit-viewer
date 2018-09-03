@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../partials/head %>
+</head>
+<body class="container">
+
+<header>
+  <% include ../partials/navigation %>
+</header>
+
+<main>
+  <div>
+    <h1>parDdj API errors data</h1>
+  </div>
+  <br/>
+  <div>
+    <table class="table table-striped table-hover">
+      <thead class="thead-inverse">
+      <tr>
+        <th>route</th>
+        <th>endpoint</th>
+        <th>count</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% for(var g in errorsData) { %>
+      <tr class="info">
+        <td><%= g %></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <% for(var e in errorsData[g]) { %>
+      <tr>
+        <td></td>
+        <td><%= e %></td>
+        <td><%= errorsData[g][e]; %></td>
+      </tr>
+      <% } %>
+      <% } %>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+</body>
+</html>

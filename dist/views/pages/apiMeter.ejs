@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../partials/head %>
+</head>
+<body class="container">
+
+<header>
+  <% include ../partials/navigation %>
+</header>
+
+<main>
+  <div>
+    <h1>parDdj API meter data</h1>
+  </div>
+  <br/>
+  <div>
+    <table class="table table-striped table-hover">
+      <thead class="thead-inverse">
+      <tr>
+        <th>route</th>
+        <th>endpoint</th>
+        <th>count</th>
+        <th>mean</th>
+        <th>currentRate</th>
+        <th>1 minute</th>
+        <th>5 minutes</th>
+        <th>15 minutes</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% for(var g in groupedData) { %>
+      <tr class="info">
+        <td>
+          <%= g %>
+        </td><td>
+        </td><td>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <% for(var e in groupedData[g]) { %>
+      <tr>
+        <td></td>
+        <td><%= e %></td>
+        <td><%= groupedData[g][e].meter.count; %></td>
+        <td><%= Number(groupedData[g][e].meter.mean).toFixed(6); %></td>
+        <td><%= Number(groupedData[g][e].meter.currentRate).toFixed(6); %></td>
+        <td><%= Number(groupedData[g][e].meter['1MinuteRate']).toFixed(6); %></td>
+        <td><%= Number(groupedData[g][e].meter['5MinuteRate']).toFixed(6); %></td>
+        <td><%= Number(groupedData[g][e].meter['15MinuteRate']).toFixed(6); %></td>
+      </tr>
+      <% } %>
+      <% } %>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../partials/head %>
+</head>
+<body class="container" onload="init()">
+
+<header>
+  <% include ../partials/navigation %>
+</header>
+
+<main>
+  <div>
+    <h1>parDdj process metrics</h1>
+  </div>
+  <br/>
+  <div>
+    <table class="table table-striped table-hover">
+      <thead>
+      <tr class="thead-header">
+        <td>CPU-Usage(%)</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= processData.cpu.usage; %></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <br/>
+
+  <div>
+    <table class="table table-striped table-hover">
+      <thead>
+      <tr class="thead-header">
+        <td colspan = "3">Memory-Usage</td>
+      </tr>
+      <tr class="thead-inverse">
+        <th>rss(bytes)</th>
+        <th>heap used(bytes)</th>
+        <th>heap total(bytes)</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= processData.memory.usage.rss; %></td>
+        <td><%= processData.memory.usage.heapUsed; %></td>
+        <td><%= processData.memory.usage.heapTotal; %></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <br/>
+
+  <div>
+    <table class="table table-striped table-hover">
+      <thead>
+      <tr class="thead-header">
+        <td colspan = "2">Run statistics</td>
+      </tr>
+      <tr class="thead-inverse">
+        <th>uptime(s)</th>
+        <th>active requests</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= processData.run.uptime; %></td>
+        <td><%= processData.run.activeRequests; %></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+</body>
+</html>

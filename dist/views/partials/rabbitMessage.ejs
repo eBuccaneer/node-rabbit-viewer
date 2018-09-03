@@ -1,0 +1,41 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#<%= modalName %>">
+    Show
+</button>
+
+<!-- Modal -->
+<div class="modal fade bs-example-modal-lg" id="<%= modalName %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Message Data</h4>
+            </div>
+            <div class="modal-body">
+                <%if (message.msg) { %>
+                <div>msg:</div>
+                <div style="padding-left: 15px"><em>Description:</em> <%= message.msg.description %></div>
+                <% } %>
+                <%if (message.data) { %>
+                    <div>data:</div>
+                    <div class="grid-container2">
+                    <% for(var prop in message.data) { %>
+                        <%if (message.data[prop]['$ref']) { %>
+                        <div class="grid-item">
+                            <h5><%= prop %></h5>
+                            <div><em>Type: </em> <a href="/models/<%= message.data[prop]['$ref'] %>"><%= message.data[prop]['$ref'] %></a></div>
+                            <div><em>Required:</em><%= message.data[prop].required %></div>
+                        </div>
+                        <% } else{ %>
+                            <div class="grid-item"><%- include('../partials/refProperty', {property: message.data[prop], propName: prop}); %></div>
+                        <% } %>
+                    <% } %>
+                    </div>
+                <% } %>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

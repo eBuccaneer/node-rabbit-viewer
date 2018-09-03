@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../partials/head %>
+</head>
+<body class="container">
+
+<header>
+  <% include ../partials/navigation %>
+</header>
+
+<main>
+  <div>
+    <h1>Services Overview</h1>
+  </div>
+  <br/>
+  <br/>
+  <div>
+    <% for(var s in services) { %>
+    <div class="well well-lg">
+      <h2><%= s %></h2>
+      <%- include('../partials/singleService', {serviceRequests: services[s].requests, serviceConsumes: services[s].consumes}); %>
+    </div>
+    <% } %>
+  </div>
+</main>
+
+</body>
+</html>

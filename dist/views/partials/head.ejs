@@ -1,0 +1,71 @@
+<meta charset="UTF-8">
+<title>RabbitMQ API Documentation</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+
+  function getParameterByName(name) {
+    url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+    var results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+</script>
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<style>
+  body    {
+    padding-top:50px;
+  }
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid #bbb;
+    overflow-x: auto;
+  }
+
+  td, th {
+    border-top: 1px solid #ddd;
+    padding: 4px 8px;
+  }
+
+  .thead-inverse{
+    background-color: black;
+    color: white;
+  }
+
+  .thead-header{
+    background-color: #d9edf7;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .grid-container {
+      display: grid;
+      grid-template-columns: auto auto auto auto auto auto;
+      background-color: transparent;
+      padding: 10px;
+  }
+
+  .grid-container2 {
+      display: grid;
+      grid-template-columns: auto auto auto auto;
+      background-color: transparent;
+      padding: 10px;
+  }
+
+  .grid-item {
+      background-color: aliceblue;
+      border: 1px solid black;
+      padding: 20px;
+      font-size: 12px;
+      text-align: center;
+  }
+
+</style>
