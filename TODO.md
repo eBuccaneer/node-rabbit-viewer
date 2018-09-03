@@ -10,6 +10,7 @@
 * [  ] publish to npm
 * [  ] create and push a docker image
 * [  ] manual usage testing
+* [  ] unit tests
 * [  ] coverage tests
 * [  ] integration tests
 * [  ] add to travis
