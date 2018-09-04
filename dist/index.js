@@ -4,8 +4,6 @@ const http = require("http");
 const path = require("path");
 const express = require("express");
 const basic_1 = require("./routes/basic");
-const _get = require("lodash/get");
-const _isFunction = require("lodash/isFunction");
 class NodeRabbitViewer {
     constructor() {
         this.app = express();

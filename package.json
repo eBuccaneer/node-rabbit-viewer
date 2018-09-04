@@ -8,8 +8,12 @@
     "build": "node_modules/.bin/tsc && yarn copyViews",
     "copyViews": "copyfiles -u 1 lib/views/**/*.ejs dist",
     "start": "VIEWER_PATH=./testData/rabbitmq.json node ./dist/index.js",
+    "prod": "node ./dist/index.js",
     "test": "node_modules/mocha/bin/_mocha -r node_modules/ts-node/register  test/**/*.spec.ts",
-    "lint": "node_modules/tslint/bin/tslint --project . --fix"
+    "lint": "node_modules/tslint/bin/tslint --project . --fix",
+    "docker:buid": "docker build -t ebuccaneer/node-rabbit-viewer .",
+    "docker:run": "docker run -d --name node-rabbit-viewer-container -v testData:/usr/rabbitViewer/testData -e VIEWER_PATH=./testData/rabbitmq.json -p 8880:8880 node-rabbit-viewer",
+    "docker:stop": "docker stop node-rabbit-viewer-container && docker rm node-rabbit-viewer-container"
   },
   "repository": {
     "type": "git",
@@ -34,14 +38,13 @@
   "dependencies": {
     "ejs": "^2.6.1",
     "express": "^4.16.3",
-    "lodash": "^4.17.10",
     "options-parser": "^0.4.0"
   },
   "devDependencies": {
     "@types/amqplib": "^0.5.8",
     "@types/chai": "^4.1.4",
     "@types/express": "^4.16.0",
-    "@types/lodash": "^4.14.116",
+    "@types/mocha": "^5.2.5",
     "@types/node": "^10.9.4",
     "chai": "^4.1.2",
     "copyfiles": "^2.0.0",

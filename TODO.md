@@ -5,10 +5,10 @@
 * [ X ] create view
 * [ X ] adapt message/model representation
 * [ X ] implement links in model page to model page
-* [  ] check stuff once again
-* [  ] create repo and copy everything inside
+* [ X ] check property/refProperty usage
+* [ X ] create and push a docker image (automated build)
+* [  ] write readme
 * [  ] publish to npm
-* [  ] create and push a docker image
 * [  ] manual usage testing
 * [  ] unit tests
 * [  ] coverage tests

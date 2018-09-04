@@ -1,9 +1,7 @@
-import http = require( "http");
-import path = require( "path");
+import http = require("http");
+import path = require("path");
 import express = require("express");
-import {BasicRoutes} from "./routes/basic";
-const _get = require("lodash/get");
-const _isFunction = require("lodash/isFunction");
+import { BasicRoutes } from "./routes/basic";
 
 class NodeRabbitViewer {
     public app: express.Application;

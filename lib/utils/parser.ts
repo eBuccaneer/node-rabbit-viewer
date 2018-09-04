@@ -16,9 +16,9 @@ export class Parser {
      */
     private parseFile = (filePath: string): any => {
         try {
-            let fileToParse = fs.readFileSync(filePath);
+            const fileToParse = fs.readFileSync(filePath);
             return JSON.parse(fileToParse.toString());
-        } catch(err){
+        } catch (err) {
             console.error("Definition file", filePath, "not found or not valid JSON.");
             process.exit(1);
         }
@@ -31,7 +31,7 @@ export class Parser {
      */
     private parseData = (data: any): any => {
         try {
-            let ret = {
+            const ret = {
                 allRequests: {
                     topic: [],
                     work: [],
@@ -51,7 +51,7 @@ export class Parser {
             };
 
             // parse data of service section
-            for(let service in data.services){
+            for (const service in data.services) {
                 ret.services[service] = {
                     requests: {
                         topic: [],
@@ -65,26 +65,26 @@ export class Parser {
                     }
                 };
 
-                if(data.services[service].requests) {
-                    if(data.services[service].requests.topic) {
-                        for (let i = 0; i < data.services[service].requests.topic.length; i++) {
-                            ret.allRequests.topic.push(data.services[service].requests.topic[i]);
+                if (data.services[service].requests) {
+                    if (data.services[service].requests.topic) {
+                        for (const tR of data.services[service].requests.topic) {
+                            ret.allRequests.topic.push(tR);
                         }
 
                         // assign requests to ret
                         ret.services[service].requests.topic = data.services[service].requests.topic;
                     }
-                    if(data.services[service].requests.work) {
-                        for (let i = 0; i < data.services[service].requests.work.length; i++) {
-                            ret.allRequests.work.push(data.services[service].requests.work[i]);
+                    if (data.services[service].requests.work) {
+                        for (const wR of data.services[service].requests.work) {
+                            ret.allRequests.work.push(wR);
                         }
 
                         // assign requests to ret
                         ret.services[service].requests.work = data.services[service].requests.work;
                     }
-                    if(data.services[service].requests.rpc) {
-                        for (let i = 0; i < data.services[service].requests.rpc.length; i++) {
-                            ret.allRequests.rpc.push(data.services[service].requests.rpc[i]);
+                    if (data.services[service].requests.rpc) {
+                        for (const rR of data.services[service].requests.rpc) {
+                            ret.allRequests.rpc.push(rR);
                         }
 
                         // assign requests to ret
@@ -92,26 +92,26 @@ export class Parser {
                     }
                 }
 
-                if(data.services[service].consumes) {
-                    if(data.services[service].consumes.topic) {
-                        for (let i = 0; i < data.services[service].consumes.topic.length; i++) {
-                            ret.allConsumes.topic.push(data.services[service].consumes.topic[i]);
+                if (data.services[service].consumes) {
+                    if (data.services[service].consumes.topic) {
+                        for (const tC of data.services[service].consumes.topic) {
+                            ret.allConsumes.topic.push(tC);
                         }
 
                         // assign consumers to ret
                         ret.services[service].consumes.topic = data.services[service].consumes.topic;
                     }
-                    if(data.services[service].consumes.work) {
-                        for (let i = 0; i < data.services[service].consumes.work.length; i++) {
-                            ret.allConsumes.work.push(data.services[service].consumes.work[i]);
+                    if (data.services[service].consumes.work) {
+                        for (const wC of data.services[service].consumes.work) {
+                            ret.allConsumes.work.push(wC);
                         }
 
                         // assign consumers to ret
                         ret.services[service].consumes.work = data.services[service].consumes.work;
                     }
-                    if(data.services[service].consumes.rpc) {
-                        for (let i = 0; i < data.services[service].consumes.rpc.length; i++) {
-                            ret.allConsumes.rpc.push(data.services[service].consumes.rpc[i]);
+                    if (data.services[service].consumes.rpc) {
+                        for (const rC of data.services[service].consumes.rpc) {
+                            ret.allConsumes.rpc.push(rC);
                         }
 
                         // assign consumers to ret
@@ -121,28 +121,30 @@ export class Parser {
             }
 
             // parse data of all section
-            if(data.all) {
-                if(data.all.requests) {
-                    if(data.all.requests.topic) {
-                        for (let i = 0; i < data.all.requests.topic.length; i++) {
-                            ret.allRequests.topic.push(data.all.requests.topic[i]);
+            if (data.all) {
+                if (data.all.requests) {
+                    if (data.all.requests.topic) {
+                        for (const tR of data.all.requests.topic) {
+                            ret.allRequests.topic.push(tR);
                         }
 
                         // check if in excepts array for every service, if not push to ret
-                        for(let service in data.services){
-                            if(data.services[service].excepts && data.services[service].excepts.requests
-                                && data.services[service].excepts.requests.topic){
-                                for (let i = 0; i < data.all.requests.topic.length; i++) {
+                        for (const service in data.services) {
+                            if (data.services[service].excepts && data.services[service].excepts.requests
+                                && data.services[service].excepts.requests.topic) {
+                                for (const tR of data.all.requests.topic) {
                                     let found = false;
-                                    for (let j = 0; j < data.services[service].excepts.requests.topic.length; j++){
-                                        if(data.all.requests.topic[i].exchange === data.services[service].excepts.requests.topic[j].exchange
-                                            && data.all.requests.topic[i].key === data.services[service].excepts.requests.topic[j].key){
+                                    for (const tRE of data.services[service].excepts.requests.topic) {
+                                        if (tR.exchange
+                                                === tRE.exchange
+                                            && tR.key === tRE.key) {
                                             found = true;
+                                            break;
                                         }
                                     }
-                                    if(!found){
-                                        ret.services[service].requests.topic.push(data.all.requests.topic[i]);
-                                    } else{
+                                    if (!found) {
+                                        ret.services[service].requests.topic.push(tR);
+                                    } else {
                                         found = false;
                                     }
                                 }
@@ -151,18 +153,18 @@ export class Parser {
                             }
                         }
                     }
-                    if(data.all.requests.work) {
-                        for (let i = 0; i < data.all.requests.work.length; i++) {
-                            ret.allRequests.work.push(data.all.requests.work[i]);
+                    if (data.all.requests.work) {
+                        for (const wR of data.all.requests.work) {
+                            ret.allRequests.work.push(wR);
                         }
 
                         // check if in excepts array for every service, if not push to ret
-                        for(let service in data.services){
-                            if(data.services[service].excepts && data.services[service].excepts.requests
-                                && data.services[service].excepts.requests.work){
-                                for (let i = 0; i < data.all.requests.work.length; i++) {
-                                    if(!data.services[service].excepts.requests.work.includes(data.all.requests.work[i].queue)){
-                                        ret.services[service].requests.work.push(data.all.requests.work[i]);
+                        for (const service in data.services) {
+                            if (data.services[service].excepts && data.services[service].excepts.requests
+                                && data.services[service].excepts.requests.work) {
+                                for (const wR of data.all.requests.work) {
+                                    if (!data.services[service].excepts.requests.work.includes(wR.queue)) {
+                                        ret.services[service].requests.work.push(wR);
                                     }
                                 }
                             } else {
@@ -170,18 +172,18 @@ export class Parser {
                             }
                         }
                     }
-                    if(data.all.requests.rpc) {
-                        for (let i = 0; i < data.all.requests.rpc.length; i++) {
-                            ret.allRequests.rpc.push(data.all.requests.rpc[i]);
+                    if (data.all.requests.rpc) {
+                        for (const rR of data.all.requests.rpc) {
+                            ret.allRequests.rpc.push(rR);
                         }
 
                         // check if in excepts array for every service, if not push to ret
-                        for(let service in data.services){
-                            if(data.services[service].excepts && data.services[service].excepts.requests
-                                && data.services[service].excepts.requests.rpc){
-                                for (let i = 0; i < data.all.requests.rpc.length; i++) {
-                                    if(!data.services[service].excepts.requests.rpc.includes(data.all.requests.rpc[i].name)){
-                                        ret.services[service].requests.rpc.push(data.all.requests.rpc[i]);
+                        for (const service in data.services) {
+                            if (data.services[service].excepts && data.services[service].excepts.requests
+                                && data.services[service].excepts.requests.rpc) {
+                                for (const rR of data.all.requests.rpc) {
+                                    if (!data.services[service].excepts.requests.rpc.includes(rR.name)) {
+                                        ret.services[service].requests.rpc.push(rR);
                                     }
                                 }
                             } else {
@@ -191,27 +193,28 @@ export class Parser {
                     }
                 }
 
-                if(data.all.consumes) {
-                    if(data.all.consumes.topic) {
-                        for (let i = 0; i < data.all.consumes.topic.length; i++) {
-                            ret.allConsumes.topic.push(data.all.consumes.topic[i]);
+                if (data.all.consumes) {
+                    if (data.all.consumes.topic) {
+                        for (const tC of data.all.consumes.topic) {
+                            ret.allConsumes.topic.push(tC);
                         }
 
                         // check if in excepts array for every service, if not push to ret
-                        for(let service in data.services){
-                            if(data.services[service].excepts && data.services[service].excepts.consumes
-                                && data.services[service].excepts.consumes.topic){
-                                for (let i = 0; i < data.all.consumes.topic.length; i++) {
+                        for (const service in data.services) {
+                            if (data.services[service].excepts && data.services[service].excepts.consumes
+                                && data.services[service].excepts.consumes.topic) {
+                                for (const tC of data.all.consumes.topic) {
                                     let found = false;
-                                    for (let j = 0; j < data.services[service].excepts.consumes.topic.length; j++){
-                                        if(data.all.consumes.topic[i].exchange === data.services[service].excepts.consumes.topic[j].exchange
-                                            && data.all.consumes.topic[i].key === data.services[service].excepts.consumes.topic[j].key){
+                                    for (const tCE of data.services[service].excepts.consumes.topic) {
+                                        if (tC.exchange
+                                                === tCE.exchange
+                                            && tC.key === tCE.key) {
                                             found = true;
                                         }
                                     }
-                                    if(!found){
-                                        ret.services[service].consumes.topic.push(data.all.consumes.topic[i]);
-                                    } else{
+                                    if (!found) {
+                                        ret.services[service].consumes.topic.push(tC);
+                                    } else {
                                         found = false;
                                     }
                                 }
@@ -220,18 +223,18 @@ export class Parser {
                             }
                         }
                     }
-                    if(data.all.consumes.work) {
-                        for (let i = 0; i < data.all.consumes.work.length; i++) {
-                            ret.allConsumes.work.push(data.all.consumes.work[i]);
+                    if (data.all.consumes.work) {
+                        for (const wC of data.all.consumes.work) {
+                            ret.allConsumes.work.push(wC);
                         }
 
                         // check if in excepts array for every service, if not push to ret
-                        for(let service in data.services){
-                            if(data.services[service].excepts && data.services[service].excepts.consumes
-                                && data.services[service].excepts.consumes.work){
-                                for (let i = 0; i < data.all.consumes.work.length; i++) {
-                                    if(!data.services[service].excepts.consumes.work.includes(data.all.consumes.work[i].queue)){
-                                        ret.services[service].consumes.work.push(data.all.consumes.work[i]);
+                        for (const service in data.services) {
+                            if (data.services[service].excepts && data.services[service].excepts.consumes
+                                && data.services[service].excepts.consumes.work) {
+                                for (const wC of data.all.consumes.work) {
+                                    if (!data.services[service].excepts.consumes.work.includes(wC.queue)) {
+                                        ret.services[service].consumes.work.push(wC);
                                     }
                                 }
                             } else {
@@ -239,18 +242,18 @@ export class Parser {
                             }
                         }
                     }
-                    if(data.all.consumes.rpc) {
-                        for (let i = 0; i < data.all.consumes.rpc.length; i++) {
-                            ret.allConsumes.rpc.push(data.all.consumes.rpc[i]);
+                    if (data.all.consumes.rpc) {
+                        for (const rC of data.all.consumes.rpc) {
+                            ret.allConsumes.rpc.push(rC);
                         }
 
                         // check if in excepts array for every service, if not push to ret
-                        for(let service in data.services){
-                            if(data.services[service].excepts && data.services[service].excepts.consumes
-                                && data.services[service].excepts.consumes.rpc){
-                                for (let i = 0; i < data.all.consumes.rpc.length; i++) {
-                                    if(!data.services[service].excepts.consumes.rpc.includes(data.all.consumes.rpc[i].name)){
-                                        ret.services[service].consumes.rpc.push(data.all.consumes.rpc[i]);
+                        for (const service in data.services) {
+                            if (data.services[service].excepts && data.services[service].excepts.consumes
+                                && data.services[service].excepts.consumes.rpc) {
+                                for (const rC of data.all.consumes.rpc) {
+                                    if (!data.services[service].excepts.consumes.rpc.includes(rC.name)) {
+                                        ret.services[service].consumes.rpc.push(rC);
                                     }
                                 }
                             } else {
@@ -273,7 +276,7 @@ export class Parser {
             ret.models = data.models;
 
             return ret;
-        } catch(err){
+        } catch (err) {
             console.error("Definition file has wrong format.");
             console.error(err);
             process.exit(1);
