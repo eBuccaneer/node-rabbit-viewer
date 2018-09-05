@@ -1,4 +1,4 @@
-![Travis (.org) master](https://img.shields.io/travis/eBuccaneer/node-rabbit-viewer.svg) 
+![Travis (.org) master](https://img.shields.io/travis/eBuccaneer/node-rabbit-viewer/master.svg) 
 ![npm](https://img.shields.io/npm/dt/node-rabbit-viewer.svg)
 ![Docker Automated build](https://img.shields.io/docker/build/ebuccaneer/node-rabbit-viewer.svg)
 ![Docker Pulls](https://img.shields.io/docker/pulls/ebuccaneer/node-rabbit-viewer.svg)
@@ -35,7 +35,7 @@ docker run -d -v path/to/config/folder:/usr/rabbitViewer/config -e VIEWER_PATH=.
 ## Example
 Here is an example of the rabbitmq.json viewer config.
 Also an example [here](https://github.com/eBuccaneer/node-rabbit-viewer/tree/master/examples)
-```json
+```
 {
   "services": {
     "someService": { // name of the service
