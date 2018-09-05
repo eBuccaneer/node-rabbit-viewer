@@ -3,5 +3,5 @@ lib
 TODO.md
 yarn-error.log
 test
-testData
+config
 Dockerfile

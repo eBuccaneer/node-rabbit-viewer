@@ -1,0 +1,306 @@
+{
+  "services": {
+    "backend": {
+      "requests": {
+        "topic": [
+          {
+            "exchange": "default",
+            "key": "user.created",
+            "durable": true,
+            "message": {
+              "msg": {
+                "description": "Just a test message"
+              },
+              "data": {
+                "someProperty": {
+                  "type": "string",
+                  "description": "Some string property",
+                  "required": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "consumes": {
+        "topic": [
+          {
+            "exchange": "default",
+            "key": "user.created",
+            "durable": true,
+            "message": {
+              "msg": {
+                "description": "Just a test message"
+              },
+              "data": {
+                "someProperty": {
+                  "type": "string",
+                  "description": "Some string property",
+                  "required": false
+                }
+              }
+            },
+            "task": "This prints the message simply to the console"
+          }
+        ]
+      }
+    },
+    "logger": {
+      "consumes": {
+        "work": [
+          {
+            "queue": "logs",
+            "noAck": true,
+            "message": {
+              "data": {
+                "logObject": {
+                  "$ref": "LogMessage",
+                  "required": true
+                }
+              }
+            },
+            "task": "The log message is then logged to elasticsearch"
+          }
+        ]
+      },
+      "excepts": {
+        "requests":{
+          "work": [
+            "logs"
+          ]
+        }
+      }
+    }
+  },
+
+  "all": {
+    "requests": {
+      "work": [
+        {
+          "queue": "logs",
+          "message": {
+            "data": {
+              "logObject": {
+                "$ref": "LogMessage",
+                "required": true
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+
+  "models": {
+    "LogMessage": {
+      "type": "object",
+      "description": "This object is used to pass log messages to the logger MS",
+      "properties": {
+        "msg": {
+          "type": "string",
+          "description": "This is an error message",
+          "required": false
+        },
+        "morgan": {
+          "type": "string",
+          "description": "This is morgan formatted string for metrics",
+          "required": false
+        },
+        "serviceName": {
+          "type": "string",
+          "description": "This indicate the service this message was sent by",
+          "required": false
+        },
+        "error": {
+          "type": "string",
+          "description": "This is the error key",
+          "required": false
+        },
+        "stack": {
+          "type": "string",
+          "description": "This is the error stack",
+          "required": false
+        },
+        "level": {
+          "type": "number",
+          "description": "This indicates the log level",
+          "required": true
+        },
+        "date": {
+          "type": "date",
+          "description": "This is the date the log occurred",
+          "required": true
+        }
+      }
+    },
+    "Object": {
+      "type": "object",
+      "description": "This object is used to pass log messages to the logger MS",
+      "properties": {
+        "msg": {
+          "type": "string",
+          "description": "This is an error message",
+          "required": false
+        },
+        "morgan": {
+          "$ref": "LogMessage",
+          "required": true
+        },
+        "serviceName": {
+          "type": "string",
+          "description": "This indicate the service this message was sent by",
+          "required": false
+        },
+        "error": {
+          "type": "string",
+          "description": "This is the error key",
+          "required": false
+        },
+        "stack": {
+          "type": "string",
+          "description": "This is the error stack",
+          "required": false
+        },
+        "level": {
+          "type": "number",
+          "description": "This indicates the log level",
+          "required": true
+        },
+        "date": {
+          "type": "date",
+          "description": "This is the date the log occurred",
+          "required": true
+        }
+      }
+    }
+  },
+
+  "examples": {
+    "someService": {
+      "requests": {
+        "work": [
+          {
+            "queue": "someName1",
+            "message": {
+              "msg": {
+                "description": "Some important message"
+              }
+            }
+          }
+        ],
+        "rpc": [
+          {
+            "name": "someName2",
+            "highPriority": false,
+            "message": {
+              "msg": {
+                "description": "Some important message"
+              },
+              "data": {
+                "someProperty": {
+                  "type": "string",
+                  "description": "Some string property",
+                  "required": false
+                }
+              }
+            }
+          }
+        ],
+        "topic": [
+          {
+            "exchange": "someExchange",
+            "key": "some.key",
+            "durable": true,
+            "message": {
+              "data": {
+                "someProperty": {
+                  "$ref": "#/models/LogMessage",
+                  "required": false
+                }
+              }
+            }
+          }
+        ]
+      },
+      "consumes": {
+        "work": [
+          {
+            "queue": "someName1",
+            "noAck": false,
+            "message": {
+              "msg": {
+                "description": "Some important message"
+              }
+            },
+            "task": "This then does some task with received message"
+          }
+        ],
+        "rpc": [
+          {
+            "name": "someName2",
+            "highPriority": false,
+            "message": {
+              "msg": {
+                "description": "Some important message"
+              },
+              "data": {
+                "someProperty": {
+                  "type": "string",
+                  "description": "Some string property",
+                  "required": false
+                }
+              }
+            },
+            "task": "This then does some task with received message"
+          }
+        ],
+        "topic": [
+          {
+            "exchange": "someExchange",
+            "key": "some.*",
+            "durable": true,
+            "message": {
+              "data": {
+                "someProperty": {
+                  "$ref": "LogMessage",
+                  "required": false
+                }
+              }
+            },
+            "task": "This then does some task with received message"
+          }
+        ]
+      },
+      "excepts": {
+        "requests":{
+          "work": [
+            "logs"
+          ],
+          "rpc": [
+            "someName"
+          ],
+          "topic": [
+            {
+              "exchange": "someExchange",
+              "key": "some.key"
+            }
+          ]
+        },
+        "consumes":{
+          "work": [
+            "logs"
+          ],
+          "rpc": [
+            "someName"
+          ],
+          "topic": [
+            {
+              "exchange": "someExchange",
+              "key": "some.*"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

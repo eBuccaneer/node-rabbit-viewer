@@ -11,8 +11,8 @@
     "prod": "node ./dist/index.js",
     "test": "node_modules/mocha/bin/_mocha -r node_modules/ts-node/register  test/**/*.spec.ts",
     "lint": "node_modules/tslint/bin/tslint --project . --fix",
-    "docker:buid": "docker build -t ebuccaneer/node-rabbit-viewer .",
-    "docker:run": "docker run -d --name node-rabbit-viewer-container -v testData:/usr/rabbitViewer/testData -e VIEWER_PATH=./testData/rabbitmq.json -p 8880:8880 node-rabbit-viewer",
+    "docker:buid": "docker build -t node-rabbit-viewer .",
+    "docker:run": "docker run -d --name node-rabbit-viewer-container -v testData:/usr/rabbitViewer/testData -e VIEWER_PATH=./config/rabbitmq.json -p 8880:8880 node-rabbit-viewer",
     "docker:stop": "docker stop node-rabbit-viewer-container && docker rm node-rabbit-viewer-container"
   },
   "repository": {
@@ -37,8 +37,7 @@
   "homepage": "https://github.com/eBuccaneer/node-rabbit-viewer#readme",
   "dependencies": {
     "ejs": "^2.6.1",
-    "express": "^4.16.3",
-    "options-parser": "^0.4.0"
+    "express": "^4.16.3"
   },
   "devDependencies": {
     "@types/amqplib": "^0.5.8",

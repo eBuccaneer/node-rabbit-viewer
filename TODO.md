@@ -7,9 +7,9 @@
 * [ X ] implement links in model page to model page
 * [ X ] check property/refProperty usage
 * [ X ] create and push a docker image (automated build)
-* [  ] write readme
-* [  ] publish to npm
-* [  ] manual usage testing
+* [ X ] manual usage testing
+* [ X ] write readme
+* [ X ] publish to npm
 * [  ] unit tests
 * [  ] coverage tests
 * [  ] integration tests
