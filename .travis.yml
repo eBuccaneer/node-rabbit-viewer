@@ -1,11 +1,12 @@
 language: node_js
 node_js:
-- 5
+- 8
 sudo: required
 cache:
   directories:
   - node_modules
 script:
+- yarn lint
 - yarn build
 - yarn test
 deploy:

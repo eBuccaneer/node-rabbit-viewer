@@ -1,6 +1,6 @@
-![Travis (.org) master](https://img.shields.io/travis/ebuccaneer/node-rabbit-viewer/master.svg) 
-![Docker Automated build](https://img.shields.io/docker/build/ebuccaneer/node-rabbit-viewer.svg)
+![Travis (.org) master](https://img.shields.io/travis/eBuccaneer/node-rabbit-viewer/master.svg) 
 ![npm](https://img.shields.io/npm/dt/node-rabbit-viewer.svg)
+![Docker Automated build](https://img.shields.io/docker/build/ebuccaneer/node-rabbit-viewer.svg)
 ![Docker Pulls](https://img.shields.io/docker/pulls/ebuccaneer/node-rabbit-viewer.svg)
 
 # node-rabbit-viewer
