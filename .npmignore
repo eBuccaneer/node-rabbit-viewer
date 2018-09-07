@@ -5,3 +5,4 @@ yarn-error.log
 test
 config
 Dockerfile
+.travis.yml
