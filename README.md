@@ -22,6 +22,7 @@ yarn add node-rabbit-viewer
 ```
 
 ## Usage
+### Start
 ```bash
 // create a script in your package.json, where viewer path is the path to the viewer config json
 "startRabbitViewer": "VIEWER_PATH=./path/to/rabbitmq.json node node_modules/node-rabbit-viewer/dist/index.js"
@@ -31,6 +32,9 @@ or
 // start with docker image
 docker run -d -v path/to/config/folder:/usr/rabbitViewer/config -e VIEWER_PATH=./config/rabbitmq.json -e VIEWER_PORT=8888 -p 8880:8888 ebuccaneer/node-rabbit-viewer
 ```
+
+### Webapp
+Starting on `http://localhost:8880` per default.
 
 ## Example
 Here is an example of the rabbitmq.json viewer config.
