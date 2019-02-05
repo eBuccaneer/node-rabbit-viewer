@@ -7,7 +7,7 @@
 
 ## ATTENTION: This module is currently in alpha development phase
 
-This is a small webapp that enables exploring RabbitMQ configuration of 
+This is a small webapp that enables easy exploring RabbitMQ configuration of 
 consumers and requesters, because this can get very messy sometimes. This module was written for the related npm module
 [node-rabbit-connector](https://www.npmjs.com/package/node-rabbit-connector).
 
