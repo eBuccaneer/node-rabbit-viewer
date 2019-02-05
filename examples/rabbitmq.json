@@ -2,23 +2,19 @@
   "services": {
     "backend": {
       "requests": {
-        "topic": [
+        "rpc": [
           {
-            "exchange": "default",
-            "key": "user.created",
-            "durable": true,
+            "name": "rpc.user.create",
+            "highPriority": true,
             "message": {
-              "msg": {
-                "description": "Just a test message"
-              },
               "data": {
-                "someProperty": {
-                  "type": "string",
-                  "description": "Some string property",
-                  "required": false
+                "userCreationDTO": {
+                  "$ref": "UserCreationDTO",
+                  "required": true
                 }
               }
-            }
+            },
+            "task": "Creates/registers a new user and logs it in"
           }
         ]
       },
@@ -31,13 +27,6 @@
             "message": {
               "msg": {
                 "description": "Just a test message"
-              },
-              "data": {
-                "someProperty": {
-                  "type": "string",
-                  "description": "Some string property",
-                  "required": false
-                }
               }
             },
             "task": "This prints the message simply to the console"
@@ -54,7 +43,7 @@
             "message": {
               "data": {
                 "logObject": {
-                  "$ref": "LogMessage",
+                  "$ref": "LogObject",
                   "required": true
                 }
               }
@@ -81,7 +70,7 @@
           "message": {
             "data": {
               "logObject": {
-                "$ref": "LogMessage",
+                "$ref": "LogObject",
                 "required": true
               }
             }
@@ -92,7 +81,7 @@
   },
 
   "models": {
-    "LogMessage": {
+    "LogObject": {
       "type": "object",
       "description": "This object is used to pass log messages to the logger MS",
       "properties": {
@@ -133,43 +122,39 @@
         }
       }
     },
-    "Object": {
+    "UserCreationDTO": {
       "type": "object",
-      "description": "This object is used to pass log messages to the logger MS",
+      "description": "Object to create/register a new user and login at the same time",
       "properties": {
-        "msg": {
+        "email": {
           "type": "string",
-          "description": "This is an error message",
-          "required": false
-        },
-        "morgan": {
-          "$ref": "LogMessage",
+          "description": "The email address",
           "required": true
         },
-        "serviceName": {
+        "password": {
           "type": "string",
-          "description": "This indicate the service this message was sent by",
-          "required": false
-        },
-        "error": {
-          "type": "string",
-          "description": "This is the error key",
-          "required": false
-        },
-        "stack": {
-          "type": "string",
-          "description": "This is the error stack",
-          "required": false
-        },
-        "level": {
-          "type": "number",
-          "description": "This indicates the log level",
+          "description": "The plain password",
           "required": true
         },
-        "date": {
-          "type": "date",
-          "description": "This is the date the log occurred",
+        "username": {
+          "type": "string",
+          "description": "The username",
+          "required": false
+        },
+        "firstname": {
+          "type": "string",
+          "description": "The firstname",
           "required": true
+        },
+        "lastname": {
+          "type": "string",
+          "description": "The lastname",
+          "required": true
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "The phone number",
+          "required": false
         }
       }
     }
@@ -214,7 +199,7 @@
             "message": {
               "data": {
                 "someProperty": {
-                  "$ref": "#/models/LogMessage",
+                  "$ref": "LogObject",
                   "required": false
                 }
               }
@@ -262,7 +247,7 @@
             "message": {
               "data": {
                 "someProperty": {
-                  "$ref": "LogMessage",
+                  "$ref": "LogObject",
                   "required": false
                 }
               }

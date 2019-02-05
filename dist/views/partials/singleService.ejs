@@ -31,7 +31,7 @@
                 <td><%= serviceRequests.topic[rT].exchange %></td>
                 <td><%= serviceRequests.topic[rT].key %></td>
                 <td><%= serviceRequests.topic[rT].durable %></td>
-                <td><%- include('../partials/rabbitMessage', {message: serviceRequests.topic[rT].message, modalName: serviceRequests.topic[rT].exchange}); %></td>
+                <td><%- include('../partials/rabbitMessage', {message: serviceRequests.topic[rT].message, modalName: serviceRequests.topic[rT].exchange.replace(/\./g,'')}); %></td>
                 <td><%= serviceRequests.topic[rT].task %></td>
             </tr>
             <% } %>
@@ -51,7 +51,7 @@
                 <td><%= serviceConsumes.topic[cT].exchange %></td>
                 <td><%= serviceConsumes.topic[cT].key %></td>
                 <td><%= serviceConsumes.topic[cT].durable %></td>
-                <td><%- include('../partials/rabbitMessage', {message: serviceConsumes.topic[cT].message, modalName: serviceRequests.topic[cT].exchange}); %></td>
+                <td><%- include('../partials/rabbitMessage', {message: serviceConsumes.topic[cT].message, modalName: serviceConsumes.topic[cT].exchange.replace(/\./g,'')}); %></td>
                 <td><%= serviceConsumes.topic[cT].task %></td>
             </tr>
             <% } %>
@@ -90,7 +90,7 @@
                 <td></td>
                 <td><%= serviceRequests.work[rW].queue %></td>
                 <td><%= serviceRequests.work[rW].noAck %></td>
-                <td><%- include('../partials/rabbitMessage', {message: serviceRequests.work[rW].message, modalName: serviceRequests.work[rW].queue}); %></td>
+                <td><%- include('../partials/rabbitMessage', {message: serviceRequests.work[rW].message, modalName: serviceRequests.work[rW].queue.replace(/\./g,'')}); %></td>
                 <td><%= serviceRequests.work[rW].task %></td>
             </tr>
             <% } %>
@@ -108,7 +108,7 @@
                 <td></td>
                 <td><%= serviceConsumes.work[cW].queue %></td>
                 <td><%= serviceConsumes.work[cW].noAck %></td>
-                <td><%- include('../partials/rabbitMessage', {message: serviceConsumes.work[cW].message, modalName: serviceConsumes.work[cW].queue}); %></td>
+                <td><%- include('../partials/rabbitMessage', {message: serviceConsumes.work[cW].message, modalName: serviceConsumes.work[cW].queue.replace(/\./g,'')}); %></td>
                 <td><%= serviceConsumes.work[cW].task %></td>
             </tr>
             <% } %>
@@ -147,7 +147,7 @@
                 <td></td>
                 <td><%= serviceRequests.rpc[rR].name %></td>
                 <td><%= serviceRequests.rpc[rR].highPriority %></td>
-                <td><%- include('../partials/rabbitMessage', {message: serviceRequests.rpc[rR].message, modalName: serviceRequests.rpc[rR].queue}); %></td>
+                <td><%- include('../partials/rabbitMessage', {message: serviceRequests.rpc[rR].message, modalName: serviceRequests.rpc[rR].name.replace(/\./g,'')}); %></td>
                 <td><%= serviceRequests.rpc[rR].task %></td>
             </tr>
             <% } %>
@@ -165,7 +165,7 @@
                 <td></td>
                 <td><%= serviceConsumes.rpc[cR].name %></td>
                 <td><%= serviceConsumes.rpc[cR].highPriority %></td>
-                <td><%- include('../partials/rabbitMessage', {message: serviceConsumes.rpc[cR].message, modalName: serviceConsumes.rpc[cR].queue}); %></td>
+                <td><%- include('../partials/rabbitMessage', {message: serviceConsumes.rpc[cR].message, modalName: serviceConsumes.rpc[cR].name.replace(/\./g,'')}); %></td>
                 <td><%= serviceConsumes.rpc[cR].task %></td>
             </tr>
             <% } %>

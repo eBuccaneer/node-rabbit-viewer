@@ -7,7 +7,7 @@
   "scripts": {
     "build": "node_modules/.bin/tsc && yarn copyViews",
     "copyViews": "copyfiles -u 1 lib/views/**/*.ejs dist",
-    "start": "VIEWER_PATH=./testData/rabbitmq.json node ./dist/index.js",
+    "start": "VIEWER_PATH=./examples/rabbitmq.json VIEWER_PORT=9990 node ./dist/index.js",
     "prod": "node ./dist/index.js",
     "test": "node_modules/mocha/bin/_mocha -r node_modules/ts-node/register  test/**/*.spec.ts",
     "lint": "node_modules/tslint/bin/tslint --project . --fix",
